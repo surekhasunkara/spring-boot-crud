@@ -13,11 +13,11 @@ public class ContactService implements IContactService{
     ContactRepo contactRepo;
 
     @Override
-    public void saveContact(Contact contact) {
+    public Contact saveContact(Contact contact) {
         if(contact.getFirstName() == null || contact.getFirstName().isEmpty()){
-            return;
+            return new Contact();
         }
-        contactRepo.save(contact);
+        return contactRepo.save(contact);
     }
 
     @Override
@@ -26,9 +26,10 @@ public class ContactService implements IContactService{
     }
 
     @Override
-    public void deleteContact(int contactId) {
+    public Contact deleteContact(int contactId) {
         Contact con = contactRepo.getById(contactId);
         contactRepo.delete(con);
+        return con;
     }
 
     @Override

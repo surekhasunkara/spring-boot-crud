@@ -14,8 +14,8 @@ public class ContactController {
     ContactService contactService;
 
     @PostMapping(value="contacts/")
-    public void createContact(@RequestBody Contact contact){
-        contactService.saveContact(contact);
+    public Contact createContact(@RequestBody Contact contact){
+        return contactService.saveContact(contact);
     }
     @GetMapping(value="contacts/", produces = "application/json")
     public List<Contact> getAllContacts(){
@@ -26,11 +26,13 @@ public class ContactController {
         return contactService.getContactById(contactId);
     }
     @PutMapping(value="contacts/")
-    public  void updateContact(@RequestBody Contact contact){
+    public String updateContact(@RequestBody Contact contact){
         contactService.updateContact(contact);
+        return new String("contact updated.");
     }
     @DeleteMapping(value="/contacts/{contactId}")
-    public void deleteContact(@PathVariable int contactId){
-        contactService.deleteContact(contactId);
+    public Contact deleteContact(@PathVariable int contactId){
+
+        return contactService.deleteContact(contactId);
     }
 }
